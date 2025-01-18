@@ -51,12 +51,12 @@ generationtimeMs
 }
       
       
-class Results {
+class                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Results {
 final int? id;
 final String? name;
 final double? latitude;
 final double? longitude;
-final int? elevation;
+final double? elevation;
 final String? featureCode;
 final String? countryCode;
 final int? admin1Id;
@@ -64,14 +64,14 @@ final int? admin3Id;
 final int? admin4Id;
 final String? timezone;
 final int? population;
-final List<String>? postcodes;
+final List<dynamic>? postcodes;
 final int? countryId;
 final String? country;
 final String? admin1;
 final String? admin3;
 final String? admin4;
 const Results({this.id , this.name , this.latitude , this.longitude , this.elevation , this.featureCode , this.countryCode , this.admin1Id , this.admin3Id , this.admin4Id , this.timezone , this.population , this.postcodes , this.countryId , this.country , this.admin1 , this.admin3 , this.admin4 });
-Results copyWith({int? id, String? name, double? latitude, double? longitude, int? elevation, String? featureCode, String? countryCode, int? admin1Id, int? admin3Id, int? admin4Id, String? timezone, int? population, List<String>? postcodes, int? countryId, String? country, String? admin1, String? admin3, String? admin4}){
+Results copyWith({int? id, String? name, double? latitude, double? longitude, double? elevation, String? featureCode, String? countryCode, int? admin1Id, int? admin3Id, int? admin4Id, String? timezone, int? population, List<dynamic>? postcodes, int? countryId, String? country, String? admin1, String? admin3, String? admin4}){
 return Results(
             id:id ?? this.id,
 name:name ?? this.name,
@@ -123,7 +123,7 @@ static Results fromJson(Map<String , Object?> json){
 name:json['name'] == null ? null : json['name'] as String,
 latitude:json['latitude'] == null ? null : json['latitude'] as double,
 longitude:json['longitude'] == null ? null : json['longitude'] as double,
-elevation:json['elevation'] == null ? null : json['elevation'] as int,
+elevation:json['elevation'] == null ? null : json['elevation'] as double,
 featureCode:json['feature_code'] == null ? null : json['feature_code'] as String,
 countryCode:json['country_code'] == null ? null : json['country_code'] as String,
 admin1Id:json['admin1_id'] == null ? null : json['admin1_id'] as int,
@@ -131,7 +131,7 @@ admin3Id:json['admin3_id'] == null ? null : json['admin3_id'] as int,
 admin4Id:json['admin4_id'] == null ? null : json['admin4_id'] as int,
 timezone:json['timezone'] == null ? null : json['timezone'] as String,
 population:json['population'] == null ? null : json['population'] as int,
-postcodes:json['postcodes'] == null ? null : json['postcodes'] as List<String>,
+postcodes:json['postcodes'] == null ? null : json['postcodes'] as List<dynamic>,
 countryId:json['country_id'] == null ? null : json['country_id'] as int,
 country:json['country'] == null ? null : json['country'] as String,
 admin1:json['admin1'] == null ? null : json['admin1'] as String,

@@ -5,24 +5,32 @@ import 'package:flutter_application_1/features/search_city/provider/state/city_s
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
 
-class CitySearchProvider extends Notifier<CitySearchState>{
-  CitySearchState citySearchState = CitySearchLoading();
+class CitySearchProvider extends Notifier<CitySearchState> {
+  CitySearchState citySearchState = CitySearchForm();
   @override
   build() {
     return citySearchState;
   }
 
-   late final Dio _dio = ref.read(dioProvider);
-   late final CitySearchService _citySearchService = CitySearchService(_dio);
-  void searchCity(String name)async{
-    citySearchState = CitySearchLoading();
-    try{
-    CitySearchResult citySearchResult = await _citySearchService.searchCity(name: name, count: 10, language: 'en', format: 'json');
-    citySearchState = CitySearchSuccess(citySearchResult);
-    }
-    catch(e){
-      citySearchState = CitySearchFail(e.toString());
+  late final Dio _dio = ref.read(dioProvider);
+  late final CitySearchService _citySearchService = CitySearchService(_dio);
+  void searchCity(String name) async {
+    state = CitySearchLoading();
+    
+    try {
+      CitySearchResult citySearchResult = await _citySearchService.searchCity(
+          name: name, count: 10, language: 'en', format: 'json');
+      state = CitySearchSuccess(citySearchResult);
+      print(state);
+    } catch (e) {
+      state = CitySearchFail(e.toString());
     }
   }
-
 }
+
+NotifierProvider<CitySearchProvider, CitySearchState> citySearchProvider =
+    NotifierProvider(
+  () {
+    return CitySearchProvider();
+  },
+);
