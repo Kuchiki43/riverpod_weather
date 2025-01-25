@@ -1,1 +1,1 @@
-River Pod Weather Project
+RiverPod Weather Project
