@@ -1,4 +1,5 @@
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/search_city/data/model/city_search_result.dart';
 import 'package:flutter_application_1/features/search_city/ui/widget/flat_widget.dart';
@@ -19,13 +20,17 @@ class CityListWidget extends StatelessWidget {
         // print('code ${results?.countryCode}');
        return InkWell(
         onTap: (){
-          context.push('/current',extra: {
-           'lati'  : results?.latitude?.toString(),
-           'longi' : results?.longitude?.toString(),
-           'city'  : results?.name,
-           
-           
-           });
+          if(kIsWeb){
+            context.go('/current/${results?.latitude}/${results?.longitude}/${results?.name}');
+          }
+          else {
+            context.push('/current/${results?.latitude}/${results?.longitude}/${results?.name}');
+          //   context.push('/current',extra: {
+          //  'lati'  : results?.latitude?.toString(),
+          //  'longi' : results?.longitude?.toString(),
+          //  'city'  : results?.name,
+          //  });
+          }
         },
          child: Card(
            child: Padding(

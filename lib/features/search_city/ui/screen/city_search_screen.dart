@@ -3,6 +3,8 @@ import 'package:flutter_application_1/features/search_city/data/model/city_searc
 import 'package:flutter_application_1/features/search_city/provider/city_search_provider.dart';
 import 'package:flutter_application_1/features/search_city/provider/state/city_search_state.dart';
 import 'package:flutter_application_1/features/search_city/ui/widget/city_list_widget.dart';
+import 'package:flutter_application_1/features/theme/provider/theme_provider.dart';
+import 'package:flutter_application_1/features/theme/provider/theme_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CitySearchScreen extends ConsumerStatefulWidget {
@@ -18,13 +20,34 @@ class _CitySearchScreenState extends ConsumerState<CitySearchScreen> {
   Widget build(BuildContext context) {
     final citySearchState = ref.watch(citySearchProvider);
     final provider = ref.read(citySearchProvider.notifier);
+    final weatherTheme = ref.watch(themeProvider);
+    final weatherProvider = ref.read(themeProvider.notifier);
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          Switch(value:(weatherTheme is DarkTheme) , onChanged: (val){
+            if (!val) {
+              weatherProvider.changeTheme(LightTheme());
+            }
+            else{
+              weatherProvider.changeTheme(DarkTheme());
+            }
+          })
+        ],
+        title: Text('Riverpod Weather'),
+      ),
       body: Column(
         children: [
           Padding(
             padding: EdgeInsets.all(8),
             child: TextField(
+              keyboardType: TextInputType.url,
+              onSubmitted: (str) {
+                if(str.isNotEmpty){
+                  provider.searchCity(str);
+                }
+              },
+
               controller: _citySearchEditingController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
